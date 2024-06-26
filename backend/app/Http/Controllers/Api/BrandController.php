@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = brand::all()->sortByDesc('rating')->take(10);
+       $brands = brand::all()->sortByDesc('rating')->take(10);
         $tab = [];
         $i = 0;
 
