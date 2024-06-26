@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +20,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+Route::get('/login', [AuthController::class, 'Formlogin'])->name('auth.login');
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+Route::post('/login', [AuthController::class, 'login']); 
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('brand', BrandController::class);
-});*/
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
