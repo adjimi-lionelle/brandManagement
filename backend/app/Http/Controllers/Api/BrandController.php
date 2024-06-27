@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-       $brands = brand::all()->sortByDesc('rating')->take(10);
+       $brands = Brand::all()->sortByDesc('rating')->take(10);
         $tab = [];
         $i = 0;
 
@@ -33,7 +33,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $brand = brand::create($request->all());
+        $brand = Brand::create($request->all());
         return response()->json([
             'message' => 'brand successfully create',
             'brand' => $brand], 
