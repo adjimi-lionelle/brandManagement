@@ -6,7 +6,7 @@
                 <div class="card" style="width:800px">
                   <div class="card-body">
                     <h4 style="align:center" class="card-title">Edit Brand</h4>
-                    <form action="{{ route('admin.brand.update', $brand) }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('admin.brand.update', $brand->brand_id) }}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
