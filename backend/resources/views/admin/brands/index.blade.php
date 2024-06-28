@@ -36,7 +36,11 @@
                                 <td>{{ $i }}</td>
                                 <td>{{ $brand->brand_name }}</td>
                                 <td><img src="{{ asset('storage/' . $brand->brand_image) }}" alt="{{ $brand->brand_name }}" style="max-width: 150px; max-height: 150px;"></td>
-                                <td>{{ $brand->rating }}</td>
+                                <td>
+                                    @for ($j = 0; $j < $brand->rating; $j++)
+                                        <i class="fa fa-star" style="color:#b99f0a"></i>
+                                    @endfor
+                                </td>
                                 <td>
                                     <a href="{{ route('admin.brand.show', $brand->brand_id) }}" class="btn btn-info">Show</a>
                                     <a href="{{ route('admin.brand.edit', $brand->brand_id) }}" class="btn btn-warning">Edit</a>

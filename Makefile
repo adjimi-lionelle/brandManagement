@@ -13,3 +13,8 @@ down:
    docker-compose down
 .PHONY: down
 
+# Use the docker-exec to acces on the container
+docker-exec:
+   docker  exec -it brandApp bash
+.PHONY: down
+
