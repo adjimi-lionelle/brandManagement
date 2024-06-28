@@ -13,18 +13,18 @@ services:
     ports:
      - 4306:3306
     volumes:
-      - /dbdata:/var/lib/mysql
+      - /db-data:/var/lib/mysql
     networks:
-      brand_network:  
+      - brand_network 
 
   backend:
-    image: brand_management_app
+    image: brand-management
     container_name: brandApp
     restart: always
     ports:
      - 8000:80  
     environment:
-      - DB_HOST=db
+      - DB_HOST=database
       - DB_PORT=3306
       - DB_DATABASE=brandMAnagement
       - DB_USERNAME=brand
@@ -34,10 +34,10 @@ services:
     depends_on:
       - database
     networks:
-      brand_network:    
+      - brand_network  
 
   frontend:
-    image: brand_management_app
+    image: brand-management
     container_name: frontend_container
     restart: always
     ports:
@@ -45,7 +45,7 @@ services:
     volumes:
       - ./frontend:/var/www
     networks:
-      brand_network:     
+      - brand_network   
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -60,10 +60,10 @@ services:
       MYSQL_PASSWORD: secret
       UPLOAD_LIMIT: 50M 
     networks:
-      brand_network: 
+      - brand_network
 
 networks:
   brand_network:
 
 volumes:
-  dbdata:  
+  db-data:  

@@ -6,22 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acceuil</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">BrandManagement</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <div class="container mt-5">
-        <h2 style="margin-top:30px; text-align: center;">Top list of brands</h2>
-        <table class="table table-striped table-bordered">
-            <thead class="thead-blue">
-            <tr>
-            <th>N°</th>
-            <th>Brand Name</th>
-            <th>Brand Image</th>
-            <th>Rating</th>
-            </tr>
-            </thead>
-            <tbody id="brand-list">
-            </tbody>
-        </table>
+        <h1 style="text-align: center;">Brands top list</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-blue"> 
+                    <tr>
+                        <th>N°</th>
+                        <th>Brand Name</th>
+                        <th>Brand Image</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody id="brand-list">
+                   
+                </tbody>
+            </table>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

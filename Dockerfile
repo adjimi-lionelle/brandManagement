@@ -11,13 +11,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- &&  mv composer.phar /us
 RUN a2enmod rewrite     
 
 WORKDIR /var/www
+#ENTRYPOINT ["bash", "script.sh"]
 
 COPY apache.conf /etc/apache2/sites-available/000-default.conf
 
-
-# Copy existing application directory contents
-#COPY backend /var/www/backend
-#COPY frontend /var/www/frontend
 
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www

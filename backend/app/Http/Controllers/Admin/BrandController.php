@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandFormRequest;
+use App\Http\Requests\UpdateBrandRequest;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
 
@@ -68,57 +69,20 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        /*$validated = $request->validated();
-
+        $brand = Brand::findOrFail($id);
+    
+       
         if ($request->hasFile('brand_image')) {
-            if ($brand->brand_image) {
+            if (Storage::disk('public')->exists($brand->brand_image)) {
                 Storage::disk('public')->delete($brand->brand_image);
             }
-            $path = $request->file('brand_image')->store('brands', 'public');
-            $validated['brand_image'] = $path;
-        }
-
-        $brand->update($validated);
-
-        return redirect()->route('admin.brand.index')->with('success', 'Brand updated successfully');*/
-
-        $brand = Brand::findOrFail($id);
-        $validated = $request->validate([
-            'brand_name' => 'required|string|max:255',
-            'brand_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'rating' => 'required|numeric|min:1|max:5',
-        ]);
-
-        $brand = Brand::findOrFail($id);
-
-        if ($request->hasFile('brand_image')) {
-            $imagePath = $request->file('brand_image')->store('brands', 'public');
-            $brand->update(['brand_image' => $imagePath]);
-           /* if ($brand->brand_image) {
-                Storage::disk('public')->delete($brand->brand_image);
-            }*/
-        }
-
-        if($request->brand_name)
-        {
-            $brand->update(['brand_name' => $request->brand_name]);
-        }
-        if($request->brand_name)
-        {
-            $brand->update(['rating' => $request->rating]);
-        }
-
-       /* dd($brand);
-        
-        // Handle the image upload if a new image is uploaded
-        if ($request->hasFile('brand_image')) {
+    
             $imagePath = $request->file('brand_image')->store('brands', 'public');
             $brand->brand_image = $imagePath;
         }
-
-        $brand->brand_name = $request->brand_name;
-        $brand->rating = $request->rating;
-        $brand->save();*/
+        $brand->brand_name = $request->input('brand_name');
+        $brand->rating = $request->input('rating');
+        $brand->save();
 
         return redirect()->route('admin.brand.index')->with('success', 'Brand updated successfully');
     }
