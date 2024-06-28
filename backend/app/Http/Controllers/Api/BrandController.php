@@ -29,6 +29,25 @@ class BrandController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function allBrands()
+    {
+       $brands = Brand::all()->sortByDesc('rating');
+        $tab = [];
+        $i = 0;
+
+        foreach($brands as $brand){
+            $tab[$i]['brand_id'] = $brand->brand_id;
+            $tab[$i]['brand_name'] = $brand->brand_name; 
+            $tab[$i]['brand_image'] = url(Storage::url($brand->brand_image));
+            $tab[$i]['rating'] = $brand->rating;
+            $i++;
+        }
+        return response()->json($tab, 201);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

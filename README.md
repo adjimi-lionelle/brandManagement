@@ -1,77 +1,82 @@
 Brand management
 
-1- première façon de déployer
-avoir xamp ou wanp installé dans sa machine php 8.1.2
+I- First way to deploy
+have xamp or wanp installed on your machine with php 8.1.2 required
 
-cloner le projet 
+1-Connect the project 
 git clone git@github.com:adjimi-lionelle/brandManagement.git
 
-Accéder au dossier backend. Étant à la racine du projet brandManagement tapez:
+2-Access the backend folder. At the root of the brandManagement project, type:
 cd backend
 
-créer le fichier .env en tapant la commande suivante: 
+3-Create the .env file by typing the following command: 
 cp .env.example .env
 
+4-Update the .env file with your database information
 
-une dans le dossier backend installation des vendor:
-composer install
+5-Install dependencies:
+compose install
 
-Mettre à jour le fichier .env avec vos information pour la base de données
+6-Create database migrations
+php artisan migrate: choose yes to create database
 
-créer les migrations pour la base de données
-php artisan migrate : choisir oui pour créer la base de données
+7-Create a user
+php artisan db:seed --class=UserSeeder
 
-créer un utilisateur et 10 marques
-php artisan db:seed
+email of created user: admin@gmail.com
+created user password: admin@24
 
-email de l'utilisateur créé : admin@gmail.com
-mot de passe de l'utilisateur créé : admin@24
-
-lancer le serveur pour accéder au backend 
+8-Launch the server to access the backend 
 php artisan serve
 
-le backend est alors accessive dans le navigateur via le lien : 127.0.0.1:800O
-le lien 127.0.0.1:800O n'est pas standart car après avoir taper la commande php artisan serve vous
-le lien permettant d'accéder au backend
+the backend is then accessible in the browser via the link: 127.0.0.1:800O
+the link 127.0.0.1:800O is not standard, because after typing the php artisan serve command you'll get
+the link to access the backend
 
-lancer un serveur pour accéder au frontend :
-php -S 127.0.0.1:8001 : vous choisissez le port que vous voulez
+Modify the brandMAnagement/frontend/app.js file to access the api
+Dans mon cas http://127.0.0.1:8000/api/brands adapter en fonction du lien que vous aurez en tapant php artisan serve
 
+launch a server to access the frontend:
+php -S 127.0.0.1:8001: you choose the port you want
 
+II- Second way with docker
 
-2- deuxième façon
-
-cloner le projet 
+1-Connect the project 
 git clone git@github.com:adjimi-lionelle/brandManagement.git
 
-accédez au dossier du projet
-véribien bien que les fichiers dockerfile, docker-compose.yaml et apache sont à la racine du projet
+2-Access the project folder
+make sure the dockerfile, docker-compose.yaml and apache files are at the project root
 
-S'assurez que les information de connexion à la base de données sont les même dans le fichier docker-compose.yaml
+Make sure the database connection information is the same in the docker-compose.yaml file.
 
-Créer l'image 
+3-Create a docker image
 docker build brand-management .
 
-Lancer les container
+4-Launch containers
 docker-compose up -d
 
-démarrer  au container du backend
+5-Start backend container
 docker exec -it brandApp bash
 
-créer les migrations pour la base de données
+6-Create database migrations
 php artisan migrate
 
-créer un utilisateur
+7-Create user
 php artisan db:seed
 
-le backend est alors accessive dans le navigateur via le lien : localhost:800O/backend
-le backend est alors accessive dans le navigateur via le lien : localhost:8001
+Modify the brandMAnagement/frontend/app.js file to access the api
+ http://localhost:8000/public/api/brands
 
-Pour arrêter les container 
+the backend is then accessible in the browser via the link: localhost:800O/public
+the backend is then accessible in the browser via the link: localhost:8001
+
+8-Stop containers 
 docker-compose stop 
 
-pour arrêter et supprimer 
+9-To stop and delete containers
 docker-compose down
 
-
+if you encounter permission errors do this:
+docker exec -it brandApp bash to access backend conatainer
+chmod -R 777 * to give rights to all files and folders
 
