@@ -1,0 +1,104 @@
+.rounded-image {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%;
+    object-fit: cover; 
+    margin-top: 20px;
+}
+
+.star-yellow {
+    color: #ffd700; 
+}
+
+.thead-blue {
+    background-color: #002051 !important; /* Couleur de fond bleu */
+    color: #fff !important; /* Couleur du texte blanc */
+}
+/* Styles pour la navigation responsive */
+.navbar {
+    background-color: #002051;
+    color: #fff;
+    padding: 15px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ffc107;
+}
+
+/* Burger menu styles */
+.burger {
+    display: none; /* Masqué par défaut */
+    cursor: pointer;
+}
+
+.burger .line {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px;
+    transition: transform 0.3s ease;
+}
+
+/* Media query pour rendre le burger menu visible sur les petits écrans */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Masque les liens de navigation sur les petits écrans */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        padding: 10px;
+    }
+
+    .nav-links.active {
+        display: flex; /* Affiche les liens de navigation lorsqu'ils sont actifs */
+    }
+
+    .burger {
+        display: block; /* Affiche le burger menu sur les petits écrans */
+    }
+
+    .burger.active .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .burger.active .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .burger.active .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}

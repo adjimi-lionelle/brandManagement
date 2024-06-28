@@ -28,7 +28,7 @@
               <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 
                 <h4 class="fw-light">Sign in</h4>
-                <form class="pt-3" action="{{ route('auth.login') }}" method="POST">
+                <form class="pt-3" action="{{ route('auth.login.submit') }}" method="POST">
                     @csrf
                   <div class="form-group">
                     <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ old('email') }}" placeholder="email">

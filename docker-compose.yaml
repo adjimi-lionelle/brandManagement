@@ -1,0 +1,69 @@
+version: "3.8"
+
+services:
+  database:
+    container_name: database
+    image: mysql:8.0
+    environment:
+      # MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: brandMAnagement
+      MYSQL_USER: brand
+      MYSQL_PASSWORD: brand@24
+    ports:
+     - 4306:3306
+    volumes:
+      - /db-data:/var/lib/mysql
+    networks:
+      - brand_network 
+
+  backend:
+    image: brand-management
+    container_name: brandApp
+    restart: always
+    ports:
+     - 8000:80  
+    environment:
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_DATABASE=brandMAnagement
+      - DB_USERNAME=brand
+      - DB_PASSWORD=brand@24
+    volumes:
+      - ./backend:/var/www
+    depends_on:
+      - database
+    networks:
+      - brand_network  
+
+  frontend:
+    image: brand-management
+    container_name: frontend_container
+    restart: always
+    ports:
+      - "8001:80"
+    volumes:
+      - ./frontend:/var/www
+    networks:
+      - brand_network   
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: database
+      MYSQL_DATABASE: brandMAnagement
+      MYSQL_USER: brand
+      MYSQL_PASSWORD: secret
+      UPLOAD_LIMIT: 50M 
+    networks:
+      - brand_network
+
+networks:
+  brand_network:
+
+volumes:
+  db-data:  

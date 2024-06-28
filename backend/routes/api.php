@@ -15,8 +15,7 @@ use App\Http\Controllers\Api\BrandController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::apiResource('brands', BrandController::class);
 
-Route::apiResource('brands', BrandController::class);
+    Route::apiResource('brands', BrandController::class);
+    Route::get('/allBrands', [BrandController::class, 'allBrands'])->name('allBrand');  

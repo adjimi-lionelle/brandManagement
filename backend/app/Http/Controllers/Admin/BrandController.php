@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\BrandFormRequest;
+use App\Http\Requests\UpdateBrandRequest;
 use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,8 +16,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-       // $brands = brand::all()->sortByDesc('rating')->paginate(15);
-        $brands = Brand::orderByDesc('rating')->paginate(15);
+        $brands = Brand::orderByDesc('rating')->paginate(5);
         return view('admin.brands.index', compact('brands'));
     }
 
@@ -34,7 +34,6 @@ class BrandController extends Controller
     public function store(BrandFormRequest $request)
     {
         $validated = $request->validated();
-        //dd($validated);
 
         if ($request->hasFile('brand_image')) {
             $path = $request->file('brand_image')->store('brands', 'public');
@@ -42,7 +41,7 @@ class BrandController extends Controller
         }
 
         Brand::create($validated);
-            return redirect()->route('admin.brand.index')->with('success', 'Brand created successfully');
+        return redirect()->route('admin.brand.index')->with('success', 'Brand created successfully');
        
     }
 
@@ -68,22 +67,26 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(BrandFormRequest $request, Brand $brand)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validated();
-
+        $brand = Brand::findOrFail($id);
+    
+       
         if ($request->hasFile('brand_image')) {
-            if ($brand->brand_image) {
+            if (Storage::disk('public')->exists($brand->brand_image)) {
                 Storage::disk('public')->delete($brand->brand_image);
             }
-            $path = $request->file('brand_image')->store('brands', 'public');
-            $validated['brand_image'] = $path;
+    
+            $imagePath = $request->file('brand_image')->store('brands', 'public');
+            $brand->brand_image = $imagePath;
         }
-
-        $brand->update($validated);
+        $brand->brand_name = $request->input('brand_name');
+        $brand->rating = $request->input('rating');
+        $brand->save();
 
         return redirect()->route('admin.brand.index')->with('success', 'Brand updated successfully');
     }
+    
 
 
     /**
@@ -92,9 +95,8 @@ class BrandController extends Controller
     public function destroy(Brand $brand)
     {
         if ($brand->brand_image) {
-           
-            if (Storage::disk('public')->exists($imagePath)) {
-                Storage::disk('public')->delete($imagePath);
+            if (Storage::disk('public')->exists($brand->brand_image)) {
+                Storage::disk('public')->delete($brand->brand_image);
             }
 
         }

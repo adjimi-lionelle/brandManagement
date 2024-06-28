@@ -21,6 +21,7 @@ class DashboardController extends Controller
             'password' => Hash::make('lionie123'),
         ]);*/
         $countBrands = Brand::count();
-        return view('dashboard', compact('countBrands'));
+        $countUsers = User::count();
+        return view('dashboard', compact('countBrands', 'countUsers'));
     }
 }
