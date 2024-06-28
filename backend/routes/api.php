@@ -17,5 +17,5 @@ use App\Http\Controllers\Api\BrandController;
 
 //Route::apiResource('brands', BrandController::class);
 
-    Route::middleware('cors')->apiResource('brands', BrandController::class);
-    Route::middleware('cors')->get('/allBrands', [BrandController::class, 'allBrands'])->name('allBrand');  
+    Route::apiResource('brands', BrandController::class);
+    Route::get('/allBrands', [BrandController::class, 'allBrands'])->name('allBrand');  
