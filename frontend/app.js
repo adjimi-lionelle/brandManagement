@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://127.0.0.1:8000/api/brands')
+    fetch('http://127.0.0.1:8000/api/brands',{
+        mode: 'no-cors',
+    }
+      
+        
+    )
         .then(response => response.json())
         .then(data => {
             const brandList = document.getElementById('brand-list');
